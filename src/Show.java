@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Show {
-    public ArrayList<Actor> listOfActors;
-    public final Director director;
-    public final int duration;
-    public final String title;
+    protected ArrayList<Actor> listOfActors;
+    protected final Director director;
+    protected final int duration;
+    protected final String title;
 
     public Show(ArrayList<Actor> listOfActors, Director director, int duration, String title) {
         this.listOfActors = listOfActors;
@@ -21,19 +21,36 @@ public class Show {
         }
     }
 
-    public void actorReplacement(Actor addedActor, Actor removedActor) {
-        if (listOfActors.contains(removedActor)) {
-            listOfActors.remove(removedActor);
-            listOfActors.add(addedActor);
-        } else {
-            System.out.println(removedActor + " нет в этом спектакле");
+    public void actorReplacement(Actor addedActor, String previousActorSurname) {
+        for (Actor actor : listOfActors) {
+            if (actor.getSurname().equals(previousActorSurname)) {
+                listOfActors.remove(actor);
+                listOfActors.add(addedActor);
+                return;
+            }
+        }
+        System.out.println(previousActorSurname + " нет в этом спектакле");
+    }
+
+    public void printListOfActors() {
+        System.out.println("Список актеров спектакля " + title + ":");
+        for (Actor actor : listOfActors) {
+            System.out.println(actor);
         }
     }
 
-    @Override
-    public String toString() {
-        return "UsualPerformance={" +
-                "listOfActors=" + listOfActors +
-                '}';
+    public String getTitle() {
+        return title;
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
 }
+
+
